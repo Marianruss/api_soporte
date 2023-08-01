@@ -1,13 +1,23 @@
-const winston = require("winston")
-const logger = winston.createLogger(logConfiguration)
+const { createLogger, format, transports } = require("winston")
+const now = new Date().toLocaleString()
+const moment = require("moment")
 
-const logConfiguration ={
+// const logFormat = winston.format.combine(
+//     format.label({label: "test"}),
+//     format.timestamp(),
+//     "test"
+// )
 
-    level:"info",
+const logger = createLogger({
+    level: "",
+    format: format.combine(
+        format.simple()
+    ),
     transports: [
-        new winston.transport.Console()
-    ]
-
-}
-
-module.exports(log)
+        // new winston.transports.File({filename:"../logs/error.log",level:"error"}),
+        new (transports.Console)({ 'timestamp': true }),
+        new transports.File({ filename: "../logs/info.log", level: "info" })
+    ],
+    colorize: true
+})
+module.exports = logger
