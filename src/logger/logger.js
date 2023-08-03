@@ -2,14 +2,8 @@ const { createLogger, format, transports } = require("winston")
 const now = new Date().toLocaleString()
 const moment = require("moment")
 
-// const logFormat = winston.format.combine(
-//     format.label({label: "test"}),
-//     format.timestamp(),
-//     "test"
-// )
-
 const logger = createLogger({
-    level: "",
+    level: "LOG",
     format: format.combine(
         format.simple()
     ),
