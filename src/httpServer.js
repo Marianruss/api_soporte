@@ -1,10 +1,10 @@
 const express = require("express")
 const app = express()
 const mongoose = require("mongoose")
-const supervisorRouter = require("./routers/supervisorRouter")  
-const dotenv = require("dotenv")
+const apiRouter = require("./routers/apiRouter")  
+// const dotenv = require("dotenv")
 const logger = require("./logger/logger")
-dotenv.config()
+// dotenv.config()
 const now = new Date().toLocaleString()
 
 app.use(express.json())
@@ -17,7 +17,7 @@ const httpServer = app.listen(PORT, () => {
     logger.info(`[${now}]       Se conectó a la base de datos el usuario ${"tas"}`)
 })
 
-const mongoConnect = `mongodb+srv://${process.env.DB_USERNAME}:${process.env.DB_PASSWORD}@cluster0.n9qkduy.mongodb.net/support`
+const mongoConnect = `mongodb+srv://marianruss:Darksouls3@cluster0.n9qkduy.mongodb.net/support`
 
 mongoose.connect(mongoConnect)
     .catch( err => {
@@ -28,4 +28,4 @@ mongoose.connect(mongoConnect)
 )
 
 //Routers
-app.use("/supervisor",supervisorRouter())
+app.use("/api",apiRouter())
