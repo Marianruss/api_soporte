@@ -14,7 +14,7 @@ app.use(express.urlencoded({ extended: true }))
 const PORT = 8080
 const httpServer = app.listen(PORT, () => {
     console.log(`Server running in port ${PORT}...`)
-    logger.info(`[${now}]       Se conectó a la base de datos el usuario ${"tas"}`)
+    // logger.info(`[${now}]       Se conectó a la base de datos el usuario ${"tas"}`)
 })
 
 const mongoConnect = `mongodb+srv://marianruss:Darksouls3@cluster0.n9qkduy.mongodb.net/support`
