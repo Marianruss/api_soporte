@@ -1,5 +1,9 @@
 
-function parseData(data) {
+const supervisorModel = require("../models/supervisor.model")
+const agentModel = require("../models/agent.model")
+
+
+exports.parseData = (data) => {
     const obj = []
     // console.log(data)
     data.forEach(item => {
@@ -20,4 +24,21 @@ function parseData(data) {
 
 }
 
-module.exports = parseData
+exports.getModel = (entity) => {
+    var model
+    switch (entity) {
+        case "agent":
+            model = agentModel
+            break;
+        case "supervisor":
+            model = supervisorModel
+            break;
+        case "admin":
+            model = adminModel
+            break;
+    }
+
+    return model
+}
+
+// module.exports
