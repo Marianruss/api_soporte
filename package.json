@@ -4,7 +4,11 @@
   "description": "Api soporte base de conocimientos",
   "main": "httpServer.js",
   "scripts": {
+<<<<<<< HEAD
+    "test": "nodemon src/httpServer"
+=======
     "test": "nodemon src/httpServer.js"
+>>>>>>> 5ed1a2284991b3724b99b5e1d9d23d2e80afef3d
   },
   "keywords": [
     "api",
