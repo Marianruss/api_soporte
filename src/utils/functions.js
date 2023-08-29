@@ -1,4 +1,8 @@
 
+const supervisorModel = require("../models/supervisor.model")
+const agentModel = require("../models/agent.model")
+
+
 exports.parseData = (data) => {
     const obj = []
     // console.log(data)
@@ -19,9 +23,6 @@ exports.parseData = (data) => {
     return obj
 
 }
-
-const supervisorModel = require("../models/supervisor.model")
-const agentModel = require("../models/agent.model")
 
 exports.getModel = (entity) => {
     var model
