@@ -6,7 +6,8 @@ const agentSchema = mongoose.Schema({
     type:String,
     instrucciones:Array,
     images: Array,
-    title:String
+    title:String,
+    description:String
 })
 
 agentSchema.plugin(paginate)

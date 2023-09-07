@@ -10,7 +10,7 @@ const logger = createLogger({
     transports: [
         // new winston.transports.File({filename:"../logs/error.log",level:"error"}),
         new (transports.Console)({ 'timestamp': true }),
-        new transports.File({ filename: "../logs/info.log", level: "info" })
+        new transports.File({ filename: "../logs/info.log", level: "info", maxSize:"20kb" })
     ],
     colorize: true
 })

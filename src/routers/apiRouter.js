@@ -40,6 +40,9 @@ const apiRouterFn = () => {
             obj.push(data)
 
             obj = functions.parseData(obj)
+            // test = {
+            //     ...obj
+            // }
 
             logger.info(`[${now}]        Se consultó desde la ip ${req.socket.remoteAddress} el modulo ${entity}, sección  ${section}>${type} con resultado ${JSON.stringify(obj)}         [/:entity/:section/:type] `);
             return res.status(200).json(obj);
@@ -58,9 +61,11 @@ const apiRouterFn = () => {
         const section = req.params.section
         var dataParsed = []
         const titles = []
+        const test = {}
         const model = functions.getModel(entity)
 
         if (!model) {
+            console.log("sin model")
             logger.error(`[${now}]      Se consultó desde la ip ${req.socket.remoteAddress} el modulo "${entity}" con resultado [No existe la entidad "${entity}"]        [/:entity/:section] `);
             return res.status(404).json({
                 msg: `no existe la entidad ${entity}`
@@ -70,22 +75,34 @@ const apiRouterFn = () => {
         try {
             const data = await model.paginate({ section: section }, { limit: 10 })
 
+            console.log(data)
+
             if (data.docs.length === 0) {
-                logger.error(`[${now}]      Se consultó desde la ip ${req.socket.remoteAddress} la ruta ${entity}/${section} con resultado [No hay documentos en la ruta ${entity}/${section}]        [/:entity/:section]`);
+                console.log("sin docs")
+                logger.error(`[${now}]      Se consultó desde la ip ${req.socket.remoteAddress} la ruta "${entity}/${section}" con resultado [No hay documentos en la ruta ${entity}/${section}]        [/:entity/:section]`);
                 throw new Error(`No existe la ruta ${entity}/${section}`)
-            }
+            }   
+
+            // console.log(data.docs[1].description)
 
 
             for (let i = 0; i < data.docs.length; i++) {
-                const title = data.docs[i].title;
-                titles.push(title);
+                const item = {
+                    title: data.docs[i].title,
+                    description: data.docs[i].description,
+                    value: data.docs[i].type,
+                    section: data.docs[i].section
+                }
+                // console.log(test)
+                titles.push(item);
             }
+            console.log(titles)
 
-            logger.info(`[${now}]       Se consultó desde la ip ${req.socket.remoteAddress} el modulo ${entity} con resultado [${titles}]        [/:entity/:section]`);
+            logger.info(`[${now}]       Se consultó desde la ip ${req.socket.remoteAddress} el modulo "${entity}/${section}" con resultado "[${JSON.stringify(titles)}]"        [/:entity/:section]`);
             return res.status(200).json(titles)
         }
         catch (err) {
-            // logger.error(`[${now}]      La consulta no pudo ser completada, ${err}`);
+            logger.info(`[${now}]      La consulta no pudo ser completada, ${err}`);
             return res.status(404).json({
                 msg: `\nNo existe la ruta ${entity}/${section}`
             })
@@ -126,9 +143,9 @@ const apiRouterFn = () => {
             });
 
             logger.info(`[${now}]       Se consultó desde la ip ${req.socket.remoteAddress} el modulo "${entity}" con resultado [${sections}]       [/:entity]`);
-            return res.status(200).json({
-                sections
-            })
+            return res.status(200).send(sections)
+                
+        
         }
         catch (err) {
             logger.info(`[${now}]       Se consultó desde la ip ${req.socket.remoteAddress} el modulo "${entity}" con resultado [No se encontraron documentos en la entidad ${entity}]        [/:entity]`);
