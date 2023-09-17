@@ -42,4 +42,28 @@ exports.getModel = (entity) => {
     return model
 }
 
-// module.exports
+
+uploadImg = async (img) => {
+    // Begin file upload
+    console.log("Uploading file to Imgur..");
+    const formData = new FormData()
+    formData.append("image", img)
+
+    const apiUrl = 'https://api.imgur.com/3/image';
+    const apiToken = "779ad106e97aa48";
+
+
+    const response = await fetch(apiUrl, {
+        method: 'POST',
+        headers: {
+            Authorization: `Client-ID ${apiToken}`,
+            Cookie: 'IMGURSESSION=014a59b6eef158587ecece1fe9997e33; _nc=1'
+        },
+        body: {image:formData},
+    })
+    console.log(response)
+    return response
+
+}
+
+module.exports = uploadImg

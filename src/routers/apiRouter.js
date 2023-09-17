@@ -134,10 +134,11 @@ const apiRouterFn = () => {
 
             }
 
-            console.log(data.docs)
+            
 
             data.docs.forEach(item => {
                 if (!sections.includes(item.section)) {
+                    console.log(item.section)
                     sections.push(item.section)
                 }
             });
