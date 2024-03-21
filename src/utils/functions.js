@@ -3,7 +3,7 @@ const supervisorModel = require("../models/supervisor.model")
 const agentModel = require("../models/agent.model")
 
 
-exports.parseData = (data) => {
+parseData = (data) => {
     const obj = []
     let parsedData = []
     // console.log(data)
@@ -25,7 +25,7 @@ exports.parseData = (data) => {
 
 }
 
-exports.getModel = (entity) => {
+getModel = (entity) => {
     var model
     switch (entity) {
         case "agent":
@@ -52,18 +52,22 @@ uploadImg = async (img) => {
     const apiUrl = 'https://api.imgur.com/3/image';
     const apiToken = "779ad106e97aa48";
 
-
-    const response = await fetch(apiUrl, {
-        method: 'POST',
-        headers: {
-            Authorization: `Client-ID ${apiToken}`,
-            Cookie: 'IMGURSESSION=014a59b6eef158587ecece1fe9997e33; _nc=1'
-        },
-        body: {image:formData},
-    })
-    console.log(response)
-    return response
+    try {
+        const response = await fetch(apiUrl, {
+            method: 'POST',
+            headers: {
+                Authorization: `Client-ID ${apiToken}`,
+                Cookie: 'IMGURSESSION=014a59b6eef158587ecece1fe9997e33; _nc=1'
+            },
+            body: {image:img},
+        })
+        console.log(response)
+        return response
+    } catch (error) {
+        console.log(error)
+    }
+    
 
 }
 
-module.exports = uploadImg
+module.exports = getModel,uploadImg,parseData

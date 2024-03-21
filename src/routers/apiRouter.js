@@ -3,7 +3,7 @@ const logger = require("../logger/logger")
 const { model } = require("mongoose")
 const now = new Date().toLocaleString()
 // import { parse } from "path"
-const functions = require("../utils/functions")
+const getModel = require("../utils/functions")
 
 
 const router = Router()
@@ -19,7 +19,7 @@ const apiRouterFn = () => {
         const type = req.params.type;
 
         console.log({ entity, section, type })
-        const model = functions.getModel(entity)
+        const model = getModel(entity)
 
         if (!model) {
             logger.error(`[${now}]       Se consultó desde la ip ${req.socket.remoteAddress} el modulo "${entity}/${section}/${type}" con resultado [No existe la entidad "${entity}"]         [/:entity/:section/:type] `);
@@ -39,7 +39,7 @@ const apiRouterFn = () => {
 
             obj.push(data)
 
-            obj = functions.parseData(obj)
+            obj = parseData(obj)
             // test = {
             //     ...obj
             // }
@@ -62,7 +62,7 @@ const apiRouterFn = () => {
         var dataParsed = []
         const titles = []
         const test = {}
-        const model = functions.getModel(entity)
+        const model = getModel(entity)
 
         if (!model) {
             console.log("sin model")
@@ -116,7 +116,7 @@ const apiRouterFn = () => {
         const sections = []
         const entity = req.params.entity
         const data = {}
-        const model = functions.getModel(entity)
+        const model = getModel(entity)
 
         if (!model) {
             logger.error(`[${now}]       Se consultó desde la ip ${req.socket.remoteAddress} el modulo "${entity}" con resultado [No existe la entidad "${entity}"]        [/:entity]`);
